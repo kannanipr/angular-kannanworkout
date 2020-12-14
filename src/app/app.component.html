@@ -1,7 +1,7 @@
 <div style='background:#dbc6b8'>
 
 	{{ dataService.count }}
-  <button (click)="increaseCount()" >Increase</button>
+	<button (click)="increaseCount()" >Increase</button>
 </div>
 <br>
 <br>
@@ -9,3 +9,5 @@
 	<hello name="{{ name }} - {{ age }}"> </hello>
 
 </div>
+
+<div> {{ _myData | json }} </div>
