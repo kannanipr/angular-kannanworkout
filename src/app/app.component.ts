@@ -16,11 +16,11 @@ export class AppComponent {
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this._myData = this.dataService
+    this.dataService
       .getPRItemList()
       .subscribe(x => (this._myData = x));
 
-    this._data = this.dataService
+    this.dataService
       .getPRItemList()
       .toPromise()
       .then(x => (this._data = x));
