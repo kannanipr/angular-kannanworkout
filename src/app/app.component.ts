@@ -11,16 +11,19 @@ export class AppComponent {
   name = "kannan";
   age = 26;
   _myData = null;
+  _data = null;
 
-  constructor(
-    private dataService: DataService,
-    private httpclient: HttpClient
-  ) {
-    this.httpclient
-      .get(
-        "http://localhost/VS1MiddleWare/authandaccesscontrol/screensaccess?userId=356"
-      )
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this._myData = this.dataService
+      .getPRItemList()
       .subscribe(x => (this._myData = x));
+
+    this._data = this.dataService
+      .getPRItemList()
+      .toPromise()
+      .then(x => (this._data = x));
   }
 
   increaseCount() {
