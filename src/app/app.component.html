@@ -5,12 +5,12 @@
 </div>
 <br>
 <br>
-<div style='background:#dbc6b8'>
+<!-- <div style='background:#dbc6b8'>
 	<hello name="{{ name }} - {{ age }}"> </hello>
 
-</div>
+</div> -->
 
-<div> {{ _myData | json }} </div>
+<!-- <div> {{ _myData | json }} </div> -->
 
 
 <table>
@@ -24,6 +24,26 @@
 	</thead>
 	<tbody>
 		<tr role="row" *ngFor="let i of _myData">
+			<td>{{ i.UserId }}</td>
+			<td>{{ i.ScreenId }}</td>
+			<td>{{ i.ScreenName }}</td>
+			<td>{{i.AccessRight}}</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<table>
+	<thead>
+		<tr>
+			<th>UserID</th>
+			<th>Screenid</th>
+			<th>Screen Name</th>
+			<th>Access Rights</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr role="row" *ngFor="let i of _data">
 			<td>{{ i.UserId }}</td>
 			<td>{{ i.ScreenId }}</td>
 			<td>{{ i.ScreenName }}</td>
