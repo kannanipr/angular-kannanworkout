@@ -1,0 +1,75 @@
+.menu-container {
+  height: 100%;
+  width: 220px;
+  z-index: 5;
+
+  &.minified {
+    width: unset;
+  }
+
+  &.auto-expand{
+    margin-left: -210px;
+
+    &:hover {
+      margin-left: 0;
+    }
+
+  }
+
+  @media (max-width: 600px) {
+
+    
+    width: 100%;
+    position: absolute;
+    display: none;
+
+    &.auto-expand{
+      margin-left: 0;
+      display: block;
+    }
+    
+  }
+
+  aside {
+    width: 100%;
+
+    &#left-panel {
+      position: unset;
+      padding-top: unset;
+      top: unset;
+      left: unset;
+    }
+
+    .menu-icon {
+      margin-right: 16px;
+    }
+
+    li {
+
+      a {
+        cursor: pointer;
+      }
+
+      &.active{
+        border-right: 4px solid #fff;
+      }
+
+      &.child.active {
+        border-width: 0px;
+      }
+
+      &.active,
+      &:hover {
+        ul {
+          display: block;
+        }
+
+        >a::before {
+          content: unset;
+        }
+      }
+    }
+  }
+
+
+}
