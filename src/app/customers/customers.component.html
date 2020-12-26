@@ -1,0 +1,4 @@
+<div class="customer-main-container">
+    <ces-customer-list [authState]="authState" (selectCustomer)="onSelectCustomer($event)"></ces-customer-list>
+    <ces-edit-customer [authState]="authState" [selectedCustomerId]="selectedCustomerId" (saveCompleted)="onSaveCompleted()"></ces-edit-customer>
+</div>

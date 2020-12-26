@@ -1,0 +1,32 @@
+@mixin table-style {
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  table {
+
+    &.active-selection {
+
+      tr {
+        cursor: pointer;
+      }
+
+    }
+
+    tbody {
+      tr {
+        td {
+            
+          button {
+            padding: 3px !important;
+            margin: 4px !important;
+          }
+        }
+      }
+    }
+  }
+
+}

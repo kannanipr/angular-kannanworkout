@@ -1,0 +1,40 @@
+<div class="menu-container" [ngClass]="{'auto-expand' : showMenu}">
+  <aside id="left-panel">
+
+    <div class="login-info">
+      <span>
+  
+        <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+          <img src="assets/img/avatars/sunny.png" alt="me" class="online" />
+          <span>
+            john.doe
+          </span>
+          <i class="fa fa-angle-down"></i>
+        </a>
+  
+      </span>
+    </div>
+  
+    <nav>
+  
+      <ul>
+        <li *ngFor="let menu of menuList"  [ngClass]="{'active' : menu.isActive || menu.isChildActive}">
+          <a (click)="navigate(menu)">
+            <fa-icon class="menu-icon" *ngIf="menu.icon" [icon]="menu.icon"></fa-icon>
+            <span class="menu-item-parent">{{menu.label | titlecase}}</span>
+          </a>
+          <ul *ngIf="menu.children && menu.children.length">
+              <li *ngFor="let childMenu of menu.children" class="child" [ngClass]="{'active' : childMenu.isActive || childMenu.isChildActive}">
+                  <a (click)="navigate(childMenu)">{{childMenu.label | titlecase}}</a>
+              </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  
+    <!-- <span class="minifyme" data-action="minifyMenu">
+      <fa-icon [icon]="icMinifyMenu"></fa-icon>
+    </span> -->
+  
+  </aside>
+</div>

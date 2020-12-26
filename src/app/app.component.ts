@@ -1,37 +1,64 @@
-import { Component } from "@angular/core";
-import { DataService } from "./Services/data.service";
-import { HttpClient } from "@angular/common/http";
-import { publish } from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { filter, map, switchMap, takeWhile } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { LoaderEventService } from '@common/services/util/loader-event.service';
+import { timer } from 'rxjs';
+import { WindowsSizeListenerService } from '@common/services/util/windows-size-listener.service';
 
 @Component({
-  selector: "my-app",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  name = "kannan";
-  age = 26;
-  _myData = null;
-  _data = null;
+export class AppComponent implements OnInit {
+  public showMenu = false;
 
-  // _asyncdata = this.http.get(
-  //   "http://localhost/VS1MiddleWare/authandaccesscontrol/screensaccess?userId=356"
-  // );
+  public breadcrumps: string[] = [];
 
-  constructor(private dataService: DataService, public http: HttpClient) {
-    this._myData = this.dataService
-      .getPRItemList()
-      .subscribe(x => (this._myData = x));
+  public showLoader = false;
+
+  constructor( private _loaderEventService: LoaderEventService,
+               private _sizeListener: WindowsSizeListenerService,
+               private _route: ActivatedRoute,
+               private _router: Router) {}
+
+  ngOnInit(): void {
+    this._subscribeRouteData();
+    this._subscribeLoaderState();
   }
 
-  ngOnInit() {
-    this.dataService
-      .getPRItemList()
-      .toPromise()
-      .then(x => (this._data = x));
+  private _subscribeRouteData(): void {
+    this._router.events
+      .pipe(
+        filter((routeEvent) => routeEvent instanceof NavigationEnd),
+        map(() => this._route),
+        map((activatedRoute) => activatedRoute.firstChild),
+        takeWhile((firstChild) => !!firstChild),
+        switchMap((firstChild) => firstChild.data)
+      )
+      .subscribe((data) => {
+        if (data && data.breadcrumps) {
+          this.breadcrumps = data.breadcrumps;
+        }
+      });
   }
 
-  increaseCount() {
-    this.dataService.count++;
+  public onMenuClick(): void {
+    this.showMenu = !this.showMenu;
+  }
+
+  private _subscribeLoaderState(): void {
+
+    this._loaderEventService.getLoaderState().subscribe(state => {
+
+      timer(0).subscribe(() => {
+
+       this.showLoader = state;
+
+      });
+
+
+    });
+
   }
 }

@@ -1,0 +1,8 @@
+<div class="dataTables_paginate paging_simple_numbers" id="dt_basic_paginate">
+    <ul class="pagination">
+        <li *ngFor="let page of pageList" class="paginate_button" (click)="pageSelect.emit(page.pageNumber)"
+        [ngClass]="{'disabled' : page.isDisabled, 'active' : page.isActive}" >
+            <a href="javascript:void(0)" aria-controls="dt_basic" data-dt-idx="{{page.pageNumber}}" tabindex="0">{{page.label}}</a>
+        </li>
+    </ul>
+  </div>

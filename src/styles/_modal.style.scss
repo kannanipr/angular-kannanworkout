@@ -1,0 +1,13 @@
+@mixin modal-style {
+
+    .show-modal {
+        display: block;
+    }
+
+    .modal-body {
+        .no-padding {
+            padding: 0;
+        }
+    }
+    
+}

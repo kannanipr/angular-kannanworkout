@@ -1,0 +1,40 @@
+<div class="tree-container {{treeType === 'list' || isMobile ? 'listed-tree' : 'branched-tree'}}" [ngClass]="{'have-root': treeHierarchy.length === 1}">
+
+  <ng-container [ngTemplateOutlet]="nodeRef" [ngTemplateOutletContext]="{nodes:treeHierarchy}"></ng-container>
+
+</div>
+
+<ng-template #nodeRef let-nodes="nodes">
+
+  <ul>
+    <ng-container *ngFor="let node of nodes">
+      <li [ngClass]="{'expanded': node.isExpanded && node.children && node.children.length}" (click)="onNodeClick(node);$event.stopPropagation();">
+
+        <div class="node-container">
+          
+          <input *ngIf="showCheckbox" class="node-selection" type="checkbox" (change)="onNodeCheckChanged($event,node);$event.stopPropagation();"
+          [checked]="node.checkboxState === 'checked'" [indeterminate]="node.checkboxState === 'indeterminate'">
+          <span class="expand-collapse-icon action" (click)="toggleExpansion(node);$event.stopPropagation();"
+            *ngIf="node.children && node.children.length">
+            <fa-icon [icon]="node.isExpanded ? icCollapse : icExpand"></fa-icon>
+          </span>
+          <div class="node-content">
+            {{node.label}}
+          </div>
+          <div class="actions">
+            <div class="action btn" *ngFor="let action of node.actions" title="{{action.label}}"
+              (click)="actionClick.emit({node : node, action:action});$event.stopPropagation();">
+              <fa-icon [icon]="action.icon"></fa-icon>
+            </div>
+            <!-- <div class="action btn" *ngIf="node.enableAdd" (click)="createNewChildNode(node)">
+                  <fa-icon [icon]="icAdd"></fa-icon>
+              </div> -->
+          </div>
+        </div>
+        <ng-container *ngIf="node.children" [ngTemplateOutlet]="nodeRef"
+          [ngTemplateOutletContext]="{nodes:node.children}"></ng-container>
+      </li>
+    </ng-container>
+  </ul>
+
+</ng-template>

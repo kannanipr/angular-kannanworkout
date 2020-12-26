@@ -1,0 +1,19 @@
+<div id="ribbon">
+
+  <span class="ribbon-button-alignment">
+    <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" title="Refresh"
+      data-placement="bottom" (click)="onRefreshClick()"
+      data-original-title=""
+      data-html="true">
+      <fa-icon [icon]="refreshIcon"></fa-icon>
+    </span>
+  </span>
+
+  <!-- breadcrumb -->
+  <ol *ngIf="breadcrumps" class="breadcrumb">
+    <li *ngFor="let item of breadcrumps">{{item}}</li>
+  </ol>
+  <!-- end breadcrumb -->
+
+
+</div>

@@ -1,39 +1,19 @@
-<table>
-	<thead>
-		<tr>
-			<th>UserID</th>
-			<th>Screenid</th>
-			<th>Screen Name</th>
-			<th>Access Rights</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr role="row" *ngFor="let i of _myData">
-			<td>{{ i.UserId }}</td>
-			<td>{{ i.ScreenId }}</td>
-			<td>{{ i.ScreenName }}</td>
-			<td>{{i.AccessRight}}</td>
-		</tr>
 
-	</tbody>
-</table>
-<!-- 
-<table>
-	<thead>
-		<tr>
-			<th>UserID</th>
-			<th>Screenid</th>
-			<th>Screen Name</th>
-			<th>Access Rights</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr role="row" *ngFor="let i of _data">
-			<td>{{ i.UserId }}</td>
-			<td>{{ i.ScreenId }}</td>
-			<td>{{ i.ScreenName }}</td>
-			<td>{{i.AccessRight}}</td>
-		</tr>
-
-	</tbody>
-</table> -->
+<div class="main-container">
+  <ces-main-header (menuClick)="onMenuClick()"></ces-main-header>
+  <div class="drawer-container">
+    <ces-side-menu [ngClass]="{'full-width-menu' : showMenu}" [showMenu]="showMenu"></ces-side-menu>
+    <div class="content-container">
+      <ces-ribbon [breadcrumps]="breadcrumps"></ces-ribbon>
+      <div class="router-container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loader-container" *ngIf="showLoader">
+  <div class="backdrop"></div>
+  <div class="loader"></div>
+</div>
+<ces-snackbar></ces-snackbar>
+<ces-modal-wrapper></ces-modal-wrapper>
